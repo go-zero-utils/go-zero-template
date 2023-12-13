@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
     "{{.rootPkg}}/internal/initialize"
 	{{.importPackages}}
