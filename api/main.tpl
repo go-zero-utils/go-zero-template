@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
     "{{.projectPkg}}/internal/initialize"
+    
 	{{.importPackages}}
 )
 
@@ -10,7 +11,7 @@ import (
 func main() {
 
 	var c config.Config
-    err := initialize.InitConfigFromNacos(func(content string) error {
+    err := initialize.InitConfigFromNacos(config.NACOS_MAIN_DATA_ID, config.NACOS_MAIN_GROUP, func(content string) error {
 		return conf.LoadConfigFromYamlBytes([]byte(content), &c)
 	})
 	if err != nil {
