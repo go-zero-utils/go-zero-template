@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-    "{{.rootPkg}}/internal/initialize"
+    "{{.projectPkg}}/internal/initialize"
 	{{.importPackages}}
 )
 
