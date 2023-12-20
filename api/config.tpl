@@ -1,9 +1,14 @@
 package config
 
-import {{.authImport}}
+import (
+    {{.authImport}}
+    
+    "{{.rootPkg}}/internal/setup"
+)
 
 type Config struct {
 	rest.RestConf
+    setup.CustomConfig
 	{{.auth}}
 	{{.jwtTrans}}
 }

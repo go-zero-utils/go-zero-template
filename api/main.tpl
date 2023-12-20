@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
     
-    "{{.projectPkg}}/internal/i18n"
     "{{.projectPkg}}/internal/initialize"
 
+    "{{.rootPkg}}/internal/setup"
 	{{.importPackages}}
 )
 
@@ -19,9 +19,9 @@ func main() {
 		panic(fmt.Errorf("initialize.InitConfigFromNacos err: %s", err.Error()))
 	}
 
-    err = i18n.Load(c.Language)
+	err = setup.Setup(c.CustomConfig)
 	if err != nil {
-		panic(fmt.Errorf("i18n.Load err: %s", err.Error()))
+		panic(fmt.Errorf("setup.Setup err: %s", err.Error()))
 	}
 
 	server := rest.MustNewServer(c.RestConf)
