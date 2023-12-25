@@ -12,3 +12,17 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, {{i
     _,err:= GetConn(ctx, m.conn).ExecCtx(ctx, query, {{.expressionValues}}){{end}}
 	return err
 }
+
+{{if not .withCache}}
+// update some fileds
+//  exec update table set $fileds=$args where $key = $value
+func (m *defaultUsersModel) UpdateFileds(ctx context.Context, key string, value interface{}, fileds []string, args ...interface{}) error {
+    if len(fileds) != len(args) {
+        return fmt.Errorf("fileds: %v length not eq args: %v length", fileds, args)
+    }
+    query := fmt.Sprintf("update %s set %s where `%s` = {{if .postgreSql}}$1{{else}}?{{end}}", m.table, strings.Join(fileds, "={{if .postgreSql}}$1{{else}}?{{end}},") + "={{if .postgreSql}}$1{{else}}?{{end}}", key)
+    args = append(args, value)
+	_, err := GetConn(ctx, m.conn).ExecCtx(ctx, query, args...)
+	return err
+}
+{{end}}
