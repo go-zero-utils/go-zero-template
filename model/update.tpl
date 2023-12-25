@@ -13,10 +13,12 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, {{i
 	return err
 }
 
-{{if not .withCache}}
 // update some fileds
 //  exec update table set $fileds=$args where $key = $value
 func (m *default{{.upperStartCamelObject}}Model) UpdateFileds(ctx context.Context, key string, value interface{}, fileds []string, args ...interface{}) error {
+    {{if .withCache}}
+    return nil
+    {{else}}
     if len(fileds) != len(args) {
         return fmt.Errorf("fileds: %v length not eq args: %v length", fileds, args)
     }
@@ -24,5 +26,5 @@ func (m *default{{.upperStartCamelObject}}Model) UpdateFileds(ctx context.Contex
     args = append(args, value)
 	_, err := GetConn(ctx, m.conn).ExecCtx(ctx, query, args...)
 	return err
+    {{end}}
 }
-{{end}}
