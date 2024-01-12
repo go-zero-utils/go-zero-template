@@ -15,7 +15,7 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, {{i
 
 // update some fileds
 //  exec update table set $fileds=$args where $key = $value
-func (m *default{{.upperStartCamelObject}}Model) UpdateFileds(ctx context.Context, key string, value interface{}, fileds []string, args ...interface{}) error {
+func (m *default{{.upperStartCamelObject}}Model) UpdateFileds(ctx context.Context, key string, value interface{}, fileds []string, args []interface{}) error {
     {{if .withCache}}return nil{{else}}if len(fileds) != len(args) {
         return fmt.Errorf("fileds: %v length not eq args: %v length", fileds, args)
     }
