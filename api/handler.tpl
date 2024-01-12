@@ -5,7 +5,7 @@ import (
 
 	"{{.ProjectPkg}}/internal/api/response"
 	{{.ImportPackages}}
-	"github.com/zeromicro/go-zero/rest/httpx"
+	{{if .HasRequest}}"github.com/zeromicro/go-zero/rest/httpx"{{end}}
 )
 
 func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
