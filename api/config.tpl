@@ -3,7 +3,7 @@ package config
 import (
     {{.authImport}}
     
-    "{{.rootPkg}}/internal/setup"
+    "{{.servicePkg}}/internal/setup"
 )
 
 type Config struct {

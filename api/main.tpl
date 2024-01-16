@@ -5,7 +5,7 @@ import (
     
     "{{.projectPkg}}/internal/initialize"
 
-    "{{.rootPkg}}/internal/setup"
+    "{{.servicePkg}}/internal/setup"
 	{{.importPackages}}
 )
 
