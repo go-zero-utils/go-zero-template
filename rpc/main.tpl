@@ -13,13 +13,16 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/{{.serviceName}}.yaml", "the config file")
-
 func main() {
-	flag.Parse()
 
 	var c config.Config
-	conf.MustLoad(*configFile, &c)
+    err := initialize.InitConfigFromNacos(config.NACOS_MAIN_DATA_ID, config.NACOS_MAIN_GROUP, func(content string) error {
+		return conf.LoadConfigFromYamlBytes([]byte(content), &c)
+	})
+	if err != nil {
+		panic(fmt.Errorf("initialize.InitConfigFromNacos err: %s", err.Error()))
+	}
+
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
