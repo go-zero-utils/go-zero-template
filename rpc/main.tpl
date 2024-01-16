@@ -1,11 +1,11 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
-	{{.imports}}
+    "{{.projectPkg}}/internal/initialize"
 
+	{{.imports}}
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
