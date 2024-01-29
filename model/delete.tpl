@@ -20,7 +20,7 @@ func (m *default{{.upperStartCamelObject}}Model) Transaction(ctx context.Context
     {{if .withCache}}return m.TransactCtx(ctx, fn){{else}} return m.conn.WithContext(ctx).Transaction(fn){{end}}
 }
 
-func (m *defaultUsersModel) GetConn(conn *gorm.DB, tx ...*gorm.DB) *gorm.DB {
+func (m *default{{.upperStartCamelObject}}Model) GetConn(conn *gorm.DB, tx ...*gorm.DB) *gorm.DB {
     if len(tx) > 0 {
         return tx[0]
     }

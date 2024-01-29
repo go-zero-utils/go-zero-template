@@ -34,11 +34,6 @@ func main() {
 	})
 	defer s.Stop()
 
-	err = initialize.RegisterGrpcSerivceFromNacos(c.Name, c.ListenOn)
-	if err != nil {
-		panic(fmt.Errorf("initialize.RegisterGrpcSerivceFromNacos name: %s, listenOn: %s, err: %s", c.Name, c.ListenOn, err.Error()))
-	}
-
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
 }
