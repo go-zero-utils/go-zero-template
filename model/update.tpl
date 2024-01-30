@@ -12,7 +12,7 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, dat
     return err
 }
 
-func (m *default{{.upperStartCamelObject}}Model) UpdateByFileds(ctx context.Context, data *{{.upperStartCamelObject}}, fileds []string, tx ...*gorm.DB) error {
+func (m *default{{.upperStartCamelObject}}Model) UpdateByFields(ctx context.Context, data *{{.upperStartCamelObject}}, fileds []string, tx ...*gorm.DB) error {
     {{if .withCache}}old, err := m.FindOne(ctx, data.{{.upperStartCamelPrimaryKey}})
     if err != nil && err != ErrNotFound {
         return err
