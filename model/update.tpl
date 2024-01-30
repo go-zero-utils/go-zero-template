@@ -19,9 +19,9 @@ func (m *default{{.upperStartCamelObject}}Model) UpdateByFields(ctx context.Cont
     }
     err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
        	db := m.GetConn(conn, tx...)
-        return db.Select(fileds).Save(data).Error
+        return db.Select(fields).Save(data).Error
     }, m.getCacheKeys(old)...){{else}}db := m.GetConn(m.conn, tx...)
-        err:= db.WithContext(ctx).Select(fileds).Save(data).Error{{end}}
+        err:= db.WithContext(ctx).Select(fields).Save(data).Error{{end}}
     return err
 }
 

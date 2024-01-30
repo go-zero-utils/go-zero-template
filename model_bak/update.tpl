@@ -13,13 +13,13 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, {{i
 	return err
 }
 
-// update some fileds
-//  exec update table set $fileds=$args where $key = $value
-func (m *default{{.upperStartCamelObject}}Model) UpdateFileds(ctx context.Context, key string, value interface{}, fileds []string, args []interface{}) error {
-    {{if .withCache}}return nil{{else}}if len(fileds) != len(args) {
-        return fmt.Errorf("fileds: %v length not eq args: %v length", fileds, args)
+// update some fields
+//  exec update table set $fields=$args where $key = $value
+func (m *default{{.upperStartCamelObject}}Model) UpdateFields(ctx context.Context, key string, value interface{}, fields []string, args []interface{}) error {
+    {{if .withCache}}return nil{{else}}if len(fields) != len(args) {
+        return fmt.Errorf("fields: %v length not eq args: %v length", fields, args)
     }
-    query := fmt.Sprintf("update %s set %s where `%s` = {{if .postgreSql}}$1{{else}}?{{end}}", m.table, strings.Join(fileds, "={{if .postgreSql}}$1{{else}}?{{end}},") + "={{if .postgreSql}}$1{{else}}?{{end}}", key)
+    query := fmt.Sprintf("update %s set %s where `%s` = {{if .postgreSql}}$1{{else}}?{{end}}", m.table, strings.Join(fields, "={{if .postgreSql}}$1{{else}}?{{end}},") + "={{if .postgreSql}}$1{{else}}?{{end}}", key)
     args = append(args, value)
 	_, err := GetConn(ctx, m.conn).ExecCtx(ctx, query, args...)
 	return err{{end}}
