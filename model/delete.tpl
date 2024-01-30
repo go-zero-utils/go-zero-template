@@ -2,7 +2,7 @@
 func (m *default{{.upperStartCamelObject}}Model) Delete(ctx context.Context, {{.lowerStartCamelPrimaryKey}} {{.dataType}}, tx ...*gorm.DB) error {
 	{{if .withCache}}data, err:=m.FindOne(ctx, {{.lowerStartCamelPrimaryKey}})
 	if err!=nil{
-        if err == ErrNotFound {
+        if errors.Is(err, ErrNotFound) {
                 return nil
         }
 		return err

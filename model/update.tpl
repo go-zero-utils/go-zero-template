@@ -1,7 +1,7 @@
 
 func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, data *{{.upperStartCamelObject}}, tx ...*gorm.DB) error {
     {{if .withCache}}old, err := m.FindOne(ctx, data.{{.upperStartCamelPrimaryKey}})
-    if err != nil && err != ErrNotFound {
+    if err != nil && errors.Is(err, ErrNotFound) {
         return err
     }
     err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
@@ -14,7 +14,7 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, dat
 
 func (m *default{{.upperStartCamelObject}}Model) UpdateByFields(ctx context.Context, data *{{.upperStartCamelObject}}, fileds []string, tx ...*gorm.DB) error {
     {{if .withCache}}old, err := m.FindOne(ctx, data.{{.upperStartCamelPrimaryKey}})
-    if err != nil && err != ErrNotFound {
+    if err != nil && errors.Is(err, ErrNotFound) {
         return err
     }
     err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
