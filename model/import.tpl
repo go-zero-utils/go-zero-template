@@ -2,6 +2,7 @@ import (
 	"context"
     "database/sql"
 	"fmt"
+	"errors"
 	{{if .time}}"time"{{end}}
 
 	"github.com/SpectatorNan/gorm-zero/gormc"
