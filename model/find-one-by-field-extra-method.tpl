@@ -4,5 +4,5 @@ func (m *default{{.upperStartCamelObject}}Model) formatPrimary(primary interface
 }
 
 func (m *default{{.upperStartCamelObject}}Model) queryPrimary(conn *gorm.DB, v, primary interface{}) error {
-	return conn.Model(&{{.upperStartCamelObject}}{}).Where("{{.originalPrimaryField}} = ?", primary).Take(v).Error
+	return conn.Scopes(m.scopes()).Model(&{{.upperStartCamelObject}}{}).Where("{{.originalPrimaryField}} = ?", primary).Take(v).Error
 }

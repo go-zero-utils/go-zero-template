@@ -8,7 +8,7 @@ func (m *default{{.upperStartCamelObject}}Model) Delete(ctx context.Context, {{.
 		return err
 	}
 	 err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
-        db := m.GetConn(conn,  tx...)
+        db := m.GetConn(conn,  tx...).Scopes(m.scopes())
         return db.Delete(&{{.upperStartCamelObject}}{}, {{.lowerStartCamelPrimaryKey}}).Error
 	}, m.getCacheKeys(data)...){{else}} db := m.GetConn(m.conn, tx...)
         err:= db.WithContext(ctx).Delete(&{{.upperStartCamelObject}}{}, {{.lowerStartCamelPrimaryKey}}).Error
@@ -25,4 +25,10 @@ func (m *default{{.upperStartCamelObject}}Model) GetConn(conn *gorm.DB, tx ...*g
         return tx[0]
     }
     return conn
+}
+
+func (m *default{{.upperStartCamelObject}}Model) scopes() func(db *gorm.DB) *gorm.DB {
+    return func(db *gorm.DB) *gorm.DB {
+        return db.Table(m.table)
+    }
 }

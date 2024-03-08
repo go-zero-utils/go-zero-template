@@ -5,9 +5,9 @@ func (m *default{{.upperStartCamelObject}}Model) Update(ctx context.Context, dat
         return err
     }
     err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
-        db := m.GetConn(conn, tx...)
+        db := m.GetConn(conn, tx...).Scopes(m.scopes())
         return db.Save(data).Error
-    }, m.getCacheKeys(old)...){{else}}db := m.GetConn(m.conn, tx...)
+    }, m.getCacheKeys(old)...){{else}}db := m.GetConn(m.conn, tx...).Scopes(m.scopes())
         err:= db.WithContext(ctx).Save(data).Error{{end}}
     return err
 }
@@ -18,9 +18,9 @@ func (m *default{{.upperStartCamelObject}}Model) UpdateByFields(ctx context.Cont
         return err
     }
     err = m.ExecCtx(ctx, func(conn *gorm.DB) error {
-       	db := m.GetConn(conn, tx...)
+       	db := m.GetConn(conn, tx...).Scopes(m.scopes())
         return db.Select(fields).Save(data).Error
-    }, m.getCacheKeys(old)...){{else}}db := m.GetConn(m.conn, tx...)
+    }, m.getCacheKeys(old)...){{else}}db := m.GetConn(m.conn, tx...).Scopes(m.scopes())
         err:= db.WithContext(ctx).Select(fields).Save(data).Error{{end}}
     return err
 }

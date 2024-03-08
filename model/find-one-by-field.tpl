@@ -3,7 +3,7 @@ func (m *default{{.upperStartCamelObject}}Model) FindOneBy{{.upperField}}(ctx co
 	{{if .withCache}}{{.cacheKey}}
 	var resp {{.upperStartCamelObject}}
 	err := m.QueryRowIndexCtx(ctx, &resp, {{.cacheKeyVariable}}, m.formatPrimary, func(conn *gorm.DB, v interface{}) (interface{}, error) {
-		if err := conn.Model(&{{.upperStartCamelObject}}{}).Where("{{.originalField}}", {{.lowerStartCamelField}}).Take(&resp).Error; err != nil {
+		if err := conn.Scopes(m.scopes()).Model(&{{.upperStartCamelObject}}{}).Where("{{.originalField}}", {{.lowerStartCamelField}}).Take(&resp).Error; err != nil {
 			return nil, err
 		}
 		return resp.{{.upperStartCamelPrimaryKey}}, nil
@@ -17,7 +17,7 @@ func (m *default{{.upperStartCamelObject}}Model) FindOneBy{{.upperField}}(ctx co
 		return nil, err
 	}
 }{{else}}var resp {{.upperStartCamelObject}}
-	err := m.conn.WithContext(ctx).Model(&{{.upperStartCamelObject}}{}).Where("{{.originalField}}", {{.lowerStartCamelField}}).Take(&resp).Error
+	err := m.conn.Scopes(m.scopes()).WithContext(ctx).Model(&{{.upperStartCamelObject}}{}).Where("{{.originalField}}", {{.lowerStartCamelField}}).Take(&resp).Error
 	switch err {
 	case nil:
 		return &resp, nil
