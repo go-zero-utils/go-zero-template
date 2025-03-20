@@ -3,7 +3,7 @@ package {{.PkgName}}
 import (
 	"net/http"
 
-	"{{.ProjectPkg}}/internal/api/response"
+	"{{.ProjectPkg}}/internal/restful/response"
 	{{.ImportPackages}}
 	{{if .HasRequest}}"github.com/zeromicro/go-zero/rest/httpx"{{end}}
 )
